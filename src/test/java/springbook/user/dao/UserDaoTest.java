@@ -8,9 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
+import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ContextConfiguration;
 import springbook.user.domain.User;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.List;
 
 @SpringBootTest
@@ -18,6 +22,8 @@ import java.util.List;
 public class UserDaoTest {
     @Autowired
     private UserDao dao;
+    @Autowired
+    private DataSource dataSource;
     private User user1;
     private User user2;
     private User user3;
@@ -79,6 +85,20 @@ public class UserDaoTest {
 
         dao.add(user1);
         assertThrows(DuplicateKeyException.class, () -> dao.add(user1));
+    }
+
+    @Test
+    public void sqlExceptionTranslate() {
+        dao.deleteAll();
+
+        try {
+            dao.add(user1);
+            dao.add(user1);
+        } catch (DuplicateKeyException ex) {
+            SQLException sqlEx = (SQLException) ex.getRootCause();
+            SQLExceptionTranslator set = new SQLErrorCodeSQLExceptionTranslator(this.dataSource);
+            assertTrue(set.translate(null, null, sqlEx) instanceof DuplicateKeyException);
+        }
     }
 
     @Test
