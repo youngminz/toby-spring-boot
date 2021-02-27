@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import springbook.user.domain.User;
 
@@ -23,7 +24,8 @@ public class UserDaoTest {
         DataSource dataSource = new SingleConnectionDataSource(
                 "jdbc:mysql://localhost/testdb", "spring", "book", true
         );
-        dao.setDataSource(dataSource);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+        dao.setJdbcTemplate(jdbcTemplate);
         this.user1 = new User("gyumee", "박성철", "springno1");
         this.user2 = new User("leegw700", "이길원", "springno2");
         this.user3 = new User("bumjin", "박범진", "springno3");

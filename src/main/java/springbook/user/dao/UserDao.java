@@ -3,14 +3,13 @@ package springbook.user.dao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import springbook.user.domain.User;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 public class UserDao {
     private JdbcTemplate jdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public void add(User user) {
