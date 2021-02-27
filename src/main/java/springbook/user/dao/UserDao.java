@@ -19,14 +19,14 @@ public class UserDao {
     public User get(String id) {
         return this.jdbcTemplate.queryForObject(
                 "select * from users where id = ?",
-                new Object[]{id},
                 (rs, rowNum) -> {
                     User user = new User();
                     user.setId(rs.getString("id"));
                     user.setName(rs.getString("name"));
                     user.setPassword(rs.getString("password"));
                     return user;
-                }
+                },
+                id
         );
     }
 
