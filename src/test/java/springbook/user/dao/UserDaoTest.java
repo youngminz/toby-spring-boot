@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
+import org.springframework.dao.EmptyResultDataAccessException;
 import springbook.user.domain.User;
 
 import java.sql.SQLException;
@@ -31,6 +32,16 @@ public class UserDaoTest {
         User userget2 = dao.get(user2.getId());
         assertEquals(userget2.getName(), user2.getName());
         assertEquals(user2.getPassword(), user2.getPassword());
+    }
+
+    @Test
+    public void getUserFailure() throws SQLException {
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+        UserDao dao = context.getBean("userDao", UserDao.class);
+        dao.deleteAll();
+        assertEquals(dao.getCount(), 0);
+
+        assertThrows(EmptyResultDataAccessException.class, () -> dao.get("unknown_id"));
     }
 
     @Test
