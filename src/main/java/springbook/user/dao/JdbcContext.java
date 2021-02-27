@@ -19,4 +19,8 @@ public class JdbcContext {
             ps.executeUpdate();
         }
     }
+
+    public void executeSql(String query) throws SQLException {
+        workWithStatementStrategy(c -> c.prepareStatement(query));
+    }
 }
