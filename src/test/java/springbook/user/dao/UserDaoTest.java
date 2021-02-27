@@ -30,4 +30,25 @@ public class UserDaoTest {
         assertEquals(user.getName(), user2.getName());
         assertEquals(user.getPassword(), user2.getPassword());
     }
+
+    @Test
+    public void count() throws SQLException {
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
+        UserDao dao = context.getBean("userDao", UserDao.class);
+        User user1 = new User("gyumee", "박성철", "springno1");
+        User user2 = new User("leegw700", "이길원", "springno2");
+        User user3 = new User("bumjin", "박범진", "springno3");
+
+        dao.deleteAll();
+        assertEquals(dao.getCount(), 0);
+
+        dao.add(user1);
+        assertEquals(dao.getCount(), 1);
+
+        dao.add(user2);
+        assertEquals(dao.getCount(), 2);
+
+        dao.add(user3);
+        assertEquals(dao.getCount(), 3);
+    }
 }
