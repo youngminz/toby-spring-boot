@@ -14,21 +14,23 @@ public class UserDaoTest {
     public void addAndGet() throws SQLException {
         ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
         UserDao dao = context.getBean("userDao", UserDao.class);
+        User user1 = new User("gyumee", "박성철", "springno1");
+        User user2 = new User("leegw700", "이길원", "springno2");
 
         dao.deleteAll();
         assertEquals(dao.getCount(), 0);
 
-        User user = new User("gyumee", "박성철", "springno1");
+        dao.add(user1);
+        dao.add(user2);
+        assertEquals(dao.getCount(), 2);
 
-        dao.add(user);
-        assertEquals(dao.getCount(), 1);
+        User userget1 = dao.get(user1.getId());
+        assertEquals(user1.getName(), userget1.getName());
+        assertEquals(user1.getPassword(), userget1.getPassword());
 
-        System.out.println(user.getId() + " 등록 성공");
-
-        User user2 = dao.get(user.getId());
-
-        assertEquals(user.getName(), user2.getName());
-        assertEquals(user.getPassword(), user2.getPassword());
+        User userget2 = dao.get(user2.getId());
+        assertEquals(userget2.getName(), user2.getName());
+        assertEquals(user2.getPassword(), user2.getPassword());
     }
 
     @Test
