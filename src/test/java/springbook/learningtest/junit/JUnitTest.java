@@ -4,24 +4,27 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class JUnitTest {
-    static JUnitTest testObject;
+    static Set<JUnitTest> testObjects = new HashSet<>();
 
     @Test
     public void test1() {
-        assertNotEquals(this, testObject);
-        testObject = this;
+        assertFalse(testObjects.contains(this));
+        testObjects.add(this);
     }
 
     @Test
     public void test2() {
-        assertNotEquals(this, testObject);
-        testObject = this;
+        assertFalse(testObjects.contains(this));
+        testObjects.add(this);
     }
 
     @Test
     public void test3() {
-        assertNotEquals(this, testObject);
-        testObject = this;
+        assertFalse(testObjects.contains(this));
+        testObjects.add(this);
     }
 }
