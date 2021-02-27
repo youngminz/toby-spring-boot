@@ -9,7 +9,6 @@ import org.springframework.jdbc.datasource.SingleConnectionDataSource;
 import springbook.user.domain.User;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.List;
 
 public class UserDaoTest {
