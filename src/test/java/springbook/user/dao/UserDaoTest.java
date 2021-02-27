@@ -21,7 +21,7 @@ public class UserDaoTest {
     public void setUp() {
         dao = new UserDao();
         DataSource dataSource = new SingleConnectionDataSource(
-                "jdbc:mysql://localhost/testdb", "root", "", true
+                "jdbc:mysql://localhost/testdb", "spring", "book", true
         );
         dao.setDataSource(dataSource);
         this.user1 = new User("gyumee", "박성철", "springno1");
