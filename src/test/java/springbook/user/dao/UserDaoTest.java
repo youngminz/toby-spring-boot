@@ -1,5 +1,8 @@
 package springbook.user.dao;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 import springbook.user.domain.User;
@@ -7,14 +10,15 @@ import springbook.user.domain.User;
 import java.sql.SQLException;
 
 public class UserDaoTest {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+    @Test
+    public void addAndGet() throws SQLException {
         ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
         UserDao dao = context.getBean("userDao", UserDao.class);
 
         User user = new User();
-        user.setId("whiteship");
-        user.setName("백기선");
-        user.setPassword("married");
+        user.setId("gyumee");
+        user.setName("박성철");
+        user.setPassword("springno1");
 
         dao.add(user);
 
@@ -22,14 +26,7 @@ public class UserDaoTest {
 
         User user2 = dao.get(user.getId());
 
-        if (!user.getName().equals(user2.getName())) {
-            System.out.println("테스트 실패 (name)");
-        }
-        else if (!user.getPassword().equals(user2.getPassword())) {
-            System.out.println("테스트 실패 (password)");
-        }
-        else {
-            System.out.println("조회 테스트 성공");
-        }
+        assertEquals(user.getName(), user2.getName());
+        assertEquals(user.getPassword(), user2.getPassword());
     }
 }
