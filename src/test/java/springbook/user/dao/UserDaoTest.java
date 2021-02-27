@@ -30,7 +30,7 @@ public class UserDaoTest {
     }
 
     @Test
-    public void addAndGet() throws SQLException {
+    public void addAndGet() {
         dao.deleteAll();
         assertEquals(dao.getCount(), 0);
 
@@ -48,7 +48,7 @@ public class UserDaoTest {
     }
 
     @Test
-    public void getUserFailure() throws SQLException {
+    public void getUserFailure() {
         dao.deleteAll();
         assertEquals(dao.getCount(), 0);
 
@@ -56,7 +56,7 @@ public class UserDaoTest {
     }
 
     @Test
-    public void count() throws SQLException {
+    public void count() {
         dao.deleteAll();
         assertEquals(dao.getCount(), 0);
 
