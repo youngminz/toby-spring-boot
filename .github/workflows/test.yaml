@@ -32,8 +32,8 @@ jobs:
     - name: Test with Gradle
       run: ./gradlew test
 
-    - uses: actions/upload-artifact@v2
-      if: always()
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v1
       with:
-        name: Test Result
-        path: build/reports/tests/test
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./build/reports/jacoco/test/jacocoTestReport.xml
