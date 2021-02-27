@@ -50,11 +50,11 @@ public class UserDao {
     }
 
     public void deleteAll() throws SQLException {
-        try (
-                Connection c = dataSource.getConnection();
-                PreparedStatement ps = c.prepareStatement("delete from users")) {
-
-            ps.executeUpdate();
+        try (Connection c = dataSource.getConnection()) {
+            StatementStrategy strategy = new DeleteAllStatement();
+            try (PreparedStatement ps = strategy.makePreparedStatement(c)) {
+                ps.executeUpdate();
+            }
         }
     }
 
