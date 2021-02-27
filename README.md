@@ -1,1 +1,1 @@
-toby-spring-boot
+[![Test](https://github.com/youngminz/toby-spring-boot/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/youngminz/toby-spring-boot/actions/workflows/test.yaml) [![codecov](https://codecov.io/gh/youngminz/toby-spring-boot/branch/main/graph/badge.svg?token=JDD8OR7D5G)](https://codecov.io/gh/youngminz/toby-spring-boot)
