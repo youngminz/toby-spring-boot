@@ -52,6 +52,9 @@ public class UserDaoTest {
     public void getAll() {
         dao.deleteAll();
 
+        List<User> users0 = dao.getAll();
+        assertEquals(users0.size(), 0);
+
         dao.add(user1); // Id: gyumee
         List<User> users1 = dao.getAll();
         assertEquals(users1.size(), 1);
