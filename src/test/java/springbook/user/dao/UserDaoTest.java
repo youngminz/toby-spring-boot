@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import springbook.user.domain.User;
@@ -70,6 +72,14 @@ public class UserDaoTest {
         checkSameUser(user3, users3.get(0));
         checkSameUser(user1, users3.get(1));
         checkSameUser(user2, users3.get(2));
+    }
+
+    @Test
+    public void duplicatedKey() {
+        dao.deleteAll();
+
+        dao.add(user1);
+        assertThrows(DuplicateKeyException.class, () -> dao.add(user1));
     }
 
     @Test
