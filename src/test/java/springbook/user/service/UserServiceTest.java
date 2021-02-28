@@ -209,4 +209,9 @@ class UserServiceTest {
 
         checkLevelUpgraded(users.get(1), false);
     }
+
+    @Test
+    public void advisorAutoProxyCreator() {
+        assertTrue(testUserService instanceof java.lang.reflect.Proxy);
+    }
 }
