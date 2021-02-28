@@ -35,6 +35,9 @@ class UserServiceTest {
     UserService userService;
 
     @Autowired
+    UserService testUserService;
+
+    @Autowired
     UserDao userDao;
 
     @Autowired
@@ -183,12 +186,8 @@ class UserServiceTest {
     static class TestUserServiceException extends RuntimeException {
     }
 
-    static class TestUserService extends UserServiceImpl {
-        private String id;
-
-        private TestUserService(String id) {
-            this.id = id;
-        }
+    static class TestUserServiceImpl extends UserServiceImpl {
+        private String id = "madnite1";
 
         @Override
         protected void upgradeLevel(User user) {
@@ -202,21 +201,14 @@ class UserServiceTest {
     @Test
     @DirtiesContext
     public void upgradeAllOrNothing() throws Exception {
-        TestUserService testUserService = new TestUserService(users.get(3).getId());
-        testUserService.setUserDao(this.userDao);
-        testUserService.setMailSender(mailSender);
-
-        ProxyFactoryBean txProxyFactoryBean = context.getBean("&userService", ProxyFactoryBean.class);
-        txProxyFactoryBean.setTarget(testUserService);
-        UserService txUserService = (UserService) txProxyFactoryBean.getObject();
-
         userDao.deleteAll();
         for (User user : users) {
             userDao.add(user);
         }
 
         // 트랜잭션을 테스트하기 때문에 트랜잭션 기능이 있는 txUserService를 호출해야 한다
-        assertThrows(TestUserServiceException.class, txUserService::upgradeLevels);
+        // 트랜잭션 프록시 적용을 스프링이 대신 해주는 것을 적용한 후에는 testUserService를 호출하면 된다
+        assertThrows(TestUserServiceException.class, testUserService::upgradeLevels);
 
         checkLevelUpgraded(users.get(1), false);
     }
