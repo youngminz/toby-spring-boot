@@ -12,9 +12,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-public class XmlSqlService implements SqlService, SqlRegistry, SqlReader {
-    private SqlReader sqlReader;
-    private SqlRegistry sqlRegistry;
+public class BaseSqlService implements SqlService, SqlRegistry, SqlReader {
+    protected SqlReader sqlReader;
+    protected SqlRegistry sqlRegistry;
 
     private Map<String, String> sqlMap = new HashMap<>();
     private String sqlmapFile;
