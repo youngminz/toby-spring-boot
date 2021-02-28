@@ -14,7 +14,6 @@ import springbook.user.dao.UserDao;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
-import javax.sql.DataSource;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,9 +25,6 @@ class UserServiceTest {
 
     @Autowired
     UserDao userDao;
-
-    @Autowired
-    DataSource dataSource;
 
     @Autowired
     PlatformTransactionManager transactionManager;
@@ -112,7 +108,6 @@ class UserServiceTest {
     public void upgradeAllOrNothing() {
         UserService testUserService = new TestUserService(users.get(3).getId());
         testUserService.setUserDao(this.userDao);
-        testUserService.setDataSource(this.dataSource);
         testUserService.setTransactionManager(this.transactionManager);
         userDao.deleteAll();
         for (User user : users) {
