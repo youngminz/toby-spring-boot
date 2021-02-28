@@ -2,6 +2,8 @@ package springbook.learningtest.proxy;
 
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Proxy;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProxyTest {
@@ -12,7 +14,11 @@ class ProxyTest {
         assertEquals(hello.sayHi("Toby"), "Hi Toby");
         assertEquals(hello.sayThankYou("Toby"), "Thank You Toby");
 
-        Hello proxiedHello = new HelloUppercase(new HelloTarget());
+        Hello proxiedHello = (Hello) Proxy.newProxyInstance(
+                getClass().getClassLoader(),
+                new Class[] { Hello.class },
+                new UppercaseHandler(new HelloTarget())
+        );
         assertEquals(proxiedHello.sayHello("Toby"), "HELLO TOBY");
         assertEquals(proxiedHello.sayHi("Toby"), "HI TOBY");
         assertEquals(proxiedHello.sayThankYou("Toby"), "THANK YOU TOBY");
