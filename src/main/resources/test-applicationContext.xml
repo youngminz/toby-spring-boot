@@ -23,6 +23,7 @@
 
     <bean id="userDao" class="springbook.user.dao.UserDaoJdbc">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
+        <property name="sqlAdd" value="insert into users(id, name, email, password, level, login, recommend) values(?,?,?,?,?,?,?)" />
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
