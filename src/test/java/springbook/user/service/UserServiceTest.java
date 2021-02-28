@@ -14,7 +14,6 @@ import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,7 +43,7 @@ class UserServiceTest {
     }
 
     @Test
-    public void upgradeLevels() throws SQLException {
+    public void upgradeLevels() {
         userDao.deleteAll();
         for (User user : users) {
             userDao.add(user);
