@@ -226,6 +226,6 @@ class UserServiceTest {
 
     @Test
     public void readOnlyTransactionAttribute() {
-        testUserService.getAll();
+        assertThrows(TransientDataAccessResourceException.class, testUserService::getAll);
     }
 }
