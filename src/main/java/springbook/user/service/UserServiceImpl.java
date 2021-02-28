@@ -2,12 +2,14 @@ package springbook.user.service;
 
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.transaction.annotation.Transactional;
 import springbook.user.dao.UserDao;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
 import java.util.List;
 
+@Transactional
 public class UserServiceImpl implements UserService {
     private UserDao userDao;
     private MailSender mailSender;
