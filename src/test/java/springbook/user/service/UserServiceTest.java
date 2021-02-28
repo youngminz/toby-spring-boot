@@ -1,8 +1,8 @@
 package springbook.user.service;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static springbook.user.service.UserService.MIN_LOGIN_FOR_SILVER;
-import static springbook.user.service.UserService.MIN_RECOMMEND_FOR_GOLD;
+import static springbook.user.service.UserLevelUpgradePolicyImpl.MIN_LOGIN_FOR_SILVER;
+import static springbook.user.service.UserLevelUpgradePolicyImpl.MIN_RECOMMEND_FOR_GOLD;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
