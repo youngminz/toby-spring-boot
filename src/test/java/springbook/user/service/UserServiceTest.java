@@ -34,11 +34,11 @@ class UserServiceTest {
     @BeforeEach
     public void setUp() {
         users = Arrays.asList(
-                new User("bumjin", "박범진", "p1", Level.BASIC, MIN_LOGIN_FOR_SILVER - 1, 0),
-                new User("joytouch", "강명성", "p2", Level.BASIC, MIN_LOGIN_FOR_SILVER, 0),
-                new User("erwins", "신승한", "p3", Level.SILVER, 60, MIN_RECOMMEND_FOR_GOLD - 1),
-                new User("madnite1", "이상호", "p4", Level.SILVER, 60, MIN_RECOMMEND_FOR_GOLD),
-                new User("green", "오민규", "p5", Level.GOLD, 100, Integer.MAX_VALUE)
+                new User("bumjin", "박범진", "bumjin@spring.com", "p1", Level.BASIC, MIN_LOGIN_FOR_SILVER - 1, 0),
+                new User("joytouch", "강명성", "bumjin@spring.com", "p2", Level.BASIC, MIN_LOGIN_FOR_SILVER, 0),
+                new User("erwins", "신승한", "bumjin@spring.com", "p3", Level.SILVER, 60, MIN_RECOMMEND_FOR_GOLD - 1),
+                new User("madnite1", "이상호", "bumjin@spring.com", "p4", Level.SILVER, 60, MIN_RECOMMEND_FOR_GOLD),
+                new User("green", "오민규", "bumjin@spring.com", "p5", Level.GOLD, 100, Integer.MAX_VALUE)
         );
     }
 
@@ -80,13 +80,13 @@ class UserServiceTest {
         User userUpdate = userDao.get(user.getId());
         if (upgraded) {
             assertEquals(userUpdate.getLevel(), user.getLevel().nextLevel());
-        }
-        else {
+        } else {
             assertEquals(userUpdate.getLevel(), user.getLevel());
         }
     }
 
-    static class TestUserServiceException extends RuntimeException {}
+    static class TestUserServiceException extends RuntimeException {
+    }
 
     static class TestUserService extends UserService {
         private String id;

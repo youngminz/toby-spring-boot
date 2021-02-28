@@ -31,9 +31,9 @@ public class UserDaoTest {
 
     @BeforeEach
     public void setUp() {
-        this.user1 = new User("gyumee", "박성철", "springno1", Level.BASIC, 1, 0);
-        this.user2 = new User("leegw700", "이길원", "springno2", Level.SILVER, 55, 10);
-        this.user3 = new User("bumjin", "박범진", "springno3", Level.GOLD, 100, 40);
+        this.user1 = new User("gyumee", "박성철", "gyumee@spring.com", "springno1", Level.BASIC, 1, 0);
+        this.user2 = new User("leegw700", "이길원", "leegw700@spring.com", "springno2", Level.SILVER, 55, 10);
+        this.user3 = new User("bumjin", "박범진", "bumjin@spring.com", "springno3", Level.GOLD, 100, 40);
     }
 
     @Test
@@ -116,6 +116,7 @@ public class UserDaoTest {
         dao.add(user2);
 
         user1.setName("오민규");
+        user1.setEmail("springno6@spring.com");
         user1.setPassword("springno6");
         user1.setLevel(Level.GOLD);
         user1.setLogin(1000);
@@ -146,6 +147,7 @@ public class UserDaoTest {
     private void checkSameUser(User user1, User user2) {
         assertEquals(user1.getId(), user2.getId());
         assertEquals(user1.getName(), user2.getName());
+        assertEquals(user1.getEmail(), user2.getEmail());
         assertEquals(user1.getPassword(), user2.getPassword());
         assertEquals(user1.getLevel(), user2.getLevel());
         assertEquals(user1.getLogin(), user2.getLogin());
