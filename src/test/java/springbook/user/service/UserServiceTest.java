@@ -31,9 +31,6 @@ class UserServiceTest {
     UserService userService;
 
     @Autowired
-    UserServiceImpl userServiceImpl;
-
-    @Autowired
     UserDao userDao;
 
     @Autowired

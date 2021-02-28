@@ -16,7 +16,6 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
-
     public void setMailSender(MailSender mailSender) {
         this.mailSender = mailSender;
     }
