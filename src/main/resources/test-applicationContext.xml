@@ -23,6 +23,10 @@
 
     <bean id="userDao" class="springbook.user.dao.UserDaoJdbc">
         <property name="jdbcTemplate" ref="jdbcTemplate" />
+        <property name="sqlService" ref="sqlService" />
+    </bean>
+
+    <bean id="sqlService" class="springbook.user.sqlservice.SimpleSqlService">
         <property name="sqlMap">
             <map>
                 <entry key="add" value="insert into users(id, name, email, password, level, login, recommend) values(?,?,?,?,?,?,?)" />
