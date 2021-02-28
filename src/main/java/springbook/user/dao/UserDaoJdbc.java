@@ -6,17 +6,18 @@ import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
 import java.util.List;
+import java.util.Map;
 
 public class UserDaoJdbc implements UserDao {
     private JdbcTemplate jdbcTemplate;
-    private String sqlAdd;
+    private Map<String, String> sqlMap;
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void setSqlAdd(String sqlAdd) {
-        this.sqlAdd = sqlAdd;
+    public void setSqlMap(Map<String, String> sqlMap) {
+        this.sqlMap = sqlMap;
     }
 
     private RowMapper<User> userMapper = (rs, rowNum) -> {
@@ -33,13 +34,13 @@ public class UserDaoJdbc implements UserDao {
 
     public void add(User user) {
         this.jdbcTemplate.update(
-                sqlAdd,
+                this.sqlMap.get("add"),
                 user.getId(), user.getName(), user.getEmail(), user.getPassword(), user.getLevel().intValue(), user.getLogin(), user.getRecommend());
     }
 
     public User get(String id) {
         return this.jdbcTemplate.queryForObject(
-                "select * from users where id = ?",
+                this.sqlMap.get("get"),
                 userMapper,
                 id
         );
@@ -47,25 +48,24 @@ public class UserDaoJdbc implements UserDao {
 
     public List<User> getAll() {
         return this.jdbcTemplate.query(
-                "select * from users order by id",
+                this.sqlMap.get("getAll"),
                 userMapper
         );
     }
 
     public void update(User user) {
         this.jdbcTemplate.update(
-                "update users set name = ?, email = ?, password = ?, level = ?, login = ?, " +
-                        "recommend = ? where id = ?", user.getName(), user.getEmail(), user.getPassword(),
+                this.sqlMap.get("update"), user.getName(), user.getEmail(), user.getPassword(),
                 user.getLevel().intValue(), user.getLogin(), user.getRecommend(),
                 user.getId()
         );
     }
 
     public void deleteAll() {
-        this.jdbcTemplate.update("delete from users");
+        this.jdbcTemplate.update(this.sqlMap.get("deleteAll"));
     }
 
     public int getCount() {
-        return this.jdbcTemplate.queryForObject("select count(*) from users", Integer.class);
+        return this.jdbcTemplate.queryForObject(this.sqlMap.get("getCount"), Integer.class);
     }
 }
