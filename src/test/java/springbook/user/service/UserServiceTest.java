@@ -184,7 +184,7 @@ class UserServiceTest {
     static class TestUserServiceException extends RuntimeException {
     }
 
-    static class TestUserServiceImpl extends UserServiceImpl {
+    static class TestUserService extends UserServiceImpl {
         private String id = "madnite1";
 
         @Override
