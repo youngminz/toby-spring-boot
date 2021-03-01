@@ -8,6 +8,8 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.mail.MailSender;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -94,13 +96,19 @@ public class TestApplicationContext {
         return marshaller;
     }
 
-    @Resource
-    DataSource embeddedDatabase;
+    @Bean
+    public DataSource embeddedDatabase() {
+        return new EmbeddedDatabaseBuilder()
+                .setName("embeddedDatabase")
+                .setType(EmbeddedDatabaseType.HSQL)
+                .addScript("classpath:schema.sql")
+                .build();
+    }
 
     @Bean
     public SqlRegistry sqlRegistry() {
         EmbeddedDbSqlRegistry sqlRegistry = new EmbeddedDbSqlRegistry();
-        sqlRegistry.setDataSource(embeddedDatabase);
+        sqlRegistry.setDataSource(embeddedDatabase());
         return sqlRegistry;
     }
 
