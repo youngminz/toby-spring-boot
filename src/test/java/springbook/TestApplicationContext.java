@@ -1,10 +1,8 @@
 package springbook;
 
 import com.mysql.cj.jdbc.Driver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
@@ -31,9 +29,6 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 public class TestApplicationContext {
-    @Autowired
-    SqlService sqlService;
-
     @Bean
     public DataSource dataSource() {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
@@ -64,7 +59,7 @@ public class TestApplicationContext {
     public UserDao userDao() {
         UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
         userDaoJdbc.setJdbcTemplate(jdbcTemplate());
-        userDaoJdbc.setSqlService(sqlService);
+        userDaoJdbc.setSqlService(sqlService());
         return userDaoJdbc;
     }
 
