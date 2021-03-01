@@ -12,6 +12,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.transaction.PlatformTransactionManager;
 import springbook.user.dao.UserDao;
 import springbook.user.dao.UserDaoJdbc;
+import springbook.user.service.DummyMailSender;
 import springbook.user.service.UserService;
 import springbook.user.service.UserServiceImpl;
 import springbook.user.sqlservice.SqlService;
@@ -24,9 +25,6 @@ import javax.sql.DataSource;
 public class TestApplicationContext {
     @Autowired
     SqlService sqlService;
-
-    @Autowired
-    MailSender mailSender;
 
     @Bean
     public DataSource dataSource() {
@@ -63,10 +61,15 @@ public class TestApplicationContext {
     }
 
     @Bean
+    public MailSender mailSender() {
+        return new DummyMailSender();
+    }
+
+    @Bean
     public UserService userService() {
         UserServiceImpl userService = new UserServiceImpl();
         userService.setUserDao(userDao());
-        userService.setMailSender(mailSender);
+        userService.setMailSender(mailSender());
         return userService;
     }
 
@@ -74,7 +77,7 @@ public class TestApplicationContext {
     public UserService testUserService() {
         UserServiceTest.TestUserService userService = new UserServiceTest.TestUserService();
         userService.setUserDao(userDao());
-        userService.setMailSender(mailSender);
+        userService.setMailSender(mailSender());
         return userService;
     }
 }
