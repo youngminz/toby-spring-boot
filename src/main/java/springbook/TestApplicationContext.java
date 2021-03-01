@@ -1,6 +1,7 @@
 package springbook;
 
 import com.mysql.cj.jdbc.Driver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
@@ -10,12 +11,16 @@ import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 import springbook.user.dao.UserDao;
 import springbook.user.dao.UserDaoJdbc;
+import springbook.user.sqlservice.SqlService;
 
 import javax.sql.DataSource;
 
 @Configuration
 @ImportResource("/test-applicationContext.xml")
 public class TestApplicationContext {
+    @Autowired
+    SqlService sqlService;
+
     @Bean
     public DataSource dataSource() {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
@@ -40,5 +45,13 @@ public class TestApplicationContext {
         DataSourceTransactionManager tm = new DataSourceTransactionManager();
         tm.setDataSource(dataSource());
         return tm;
+    }
+
+    @Bean
+    public UserDao userDao() {
+        UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
+        userDaoJdbc.setJdbcTemplate(jdbcTemplate());
+        userDaoJdbc.setSqlService(sqlService);
+        return userDaoJdbc;
     }
 }
