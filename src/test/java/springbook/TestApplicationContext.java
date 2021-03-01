@@ -1,7 +1,9 @@
 package springbook;
 
 import com.mysql.cj.jdbc.Driver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
@@ -27,6 +29,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
+@ComponentScan(basePackages="springbook.user")
 public class TestApplicationContext {
 
     /**
@@ -56,15 +59,13 @@ public class TestApplicationContext {
      * 애플리케이션 로직 & 테스트
      */
 
-    @Bean
-    public UserDao userDao() {
-        return new UserDaoJdbc();
-    }
+    @Autowired
+    UserDao userDao;
 
     @Bean
     public UserService userService() {
         UserServiceImpl userService = new UserServiceImpl();
-        userService.setUserDao(userDao());
+        userService.setUserDao(userDao);
         userService.setMailSender(mailSender());
         return userService;
     }
@@ -72,7 +73,7 @@ public class TestApplicationContext {
     @Bean
     public UserService testUserService() {
         UserServiceTest.TestUserService userService = new UserServiceTest.TestUserService();
-        userService.setUserDao(userDao());
+        userService.setUserDao(userDao);
         userService.setMailSender(mailSender());
         return userService;
     }
