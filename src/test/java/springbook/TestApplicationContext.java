@@ -29,6 +29,11 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 public class TestApplicationContext {
+
+    /**
+     * DB 연결과 트랜잭션
+     */
+
     @Bean
     public DataSource dataSource() {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
@@ -42,17 +47,21 @@ public class TestApplicationContext {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(dataSource());
-        return jdbcTemplate;
-    }
-
-    @Bean
     public PlatformTransactionManager transactionManager() {
         DataSourceTransactionManager tm = new DataSourceTransactionManager();
         tm.setDataSource(dataSource());
         return tm;
+    }
+
+    /**
+     * 애플리케이션 로직 & 테스트
+     */
+
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource());
+        return jdbcTemplate;
     }
 
     @Bean
@@ -61,11 +70,6 @@ public class TestApplicationContext {
         userDaoJdbc.setJdbcTemplate(jdbcTemplate());
         userDaoJdbc.setSqlService(sqlService());
         return userDaoJdbc;
-    }
-
-    @Bean
-    public MailSender mailSender() {
-        return new DummyMailSender();
     }
 
     @Bean
@@ -85,6 +89,30 @@ public class TestApplicationContext {
     }
 
     @Bean
+    public MailSender mailSender() {
+        return new DummyMailSender();
+    }
+
+    /**
+     * SQL 서비스
+     */
+
+    @Bean
+    public SqlService sqlService() {
+        OxmSqlService sqlService = new OxmSqlService();
+        sqlService.setUnmarshaller(unmarshaller());
+        sqlService.setSqlRegistry(sqlRegistry());
+        return sqlService;
+    }
+
+    @Bean
+    public SqlRegistry sqlRegistry() {
+        EmbeddedDbSqlRegistry sqlRegistry = new EmbeddedDbSqlRegistry();
+        sqlRegistry.setDataSource(embeddedDatabase());
+        return sqlRegistry;
+    }
+
+    @Bean
     public Unmarshaller unmarshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setContextPath("com.epril.sqlmap");
@@ -98,20 +126,5 @@ public class TestApplicationContext {
                 .setType(EmbeddedDatabaseType.HSQL)
                 .addScript("classpath:schema.sql")
                 .build();
-    }
-
-    @Bean
-    public SqlRegistry sqlRegistry() {
-        EmbeddedDbSqlRegistry sqlRegistry = new EmbeddedDbSqlRegistry();
-        sqlRegistry.setDataSource(embeddedDatabase());
-        return sqlRegistry;
-    }
-
-    @Bean
-    public SqlService sqlService() {
-        OxmSqlService sqlService = new OxmSqlService();
-        sqlService.setUnmarshaller(unmarshaller());
-        sqlService.setSqlRegistry(sqlRegistry());
-        return sqlService;
     }
 }
