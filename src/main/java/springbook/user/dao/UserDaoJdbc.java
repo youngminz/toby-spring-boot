@@ -16,17 +16,7 @@ public class UserDaoJdbc implements UserDao {
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private SqlService sqlService;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
-    public void setSqlService(SqlService sqlService) {
-        this.sqlService = sqlService;
-    }
-
-    private RowMapper<User> userMapper = (rs, rowNum) -> {
+    private final RowMapper<User> userMapper = (rs, rowNum) -> {
         User user = new User();
         user.setId(rs.getString("id"));
         user.setName(rs.getString("name"));
@@ -37,6 +27,15 @@ public class UserDaoJdbc implements UserDao {
         user.setRecommend(rs.getInt("recommend"));
         return user;
     };
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    public void setSqlService(SqlService sqlService) {
+        this.sqlService = sqlService;
+    }
 
     public void add(User user) {
         this.jdbcTemplate.update(
