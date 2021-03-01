@@ -12,6 +12,7 @@ import java.util.List;
 
 public class UserDaoJdbc implements UserDao {
     private JdbcTemplate jdbcTemplate;
+    @Autowired
     private SqlService sqlService;
 
     @Autowired

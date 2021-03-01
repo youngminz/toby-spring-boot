@@ -58,9 +58,7 @@ public class TestApplicationContext {
 
     @Bean
     public UserDao userDao() {
-        UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
-        userDaoJdbc.setSqlService(sqlService());
-        return userDaoJdbc;
+        return new UserDaoJdbc();
     }
 
     @Bean
