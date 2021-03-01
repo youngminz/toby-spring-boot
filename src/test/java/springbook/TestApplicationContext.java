@@ -14,6 +14,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springbook.user.dao.UserDao;
 import springbook.user.dao.UserDaoJdbc;
 import springbook.user.service.DummyMailSender;
@@ -25,10 +26,10 @@ import springbook.user.sqlservice.SqlRegistry;
 import springbook.user.sqlservice.SqlService;
 import springbook.user.service.UserServiceTest;
 
-import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 @Configuration
+@EnableTransactionManagement
 @ImportResource("/test-applicationContext.xml")
 public class TestApplicationContext {
     @Autowired
