@@ -27,7 +27,7 @@ import java.util.List;
 
 @SpringBootTest
 @ContextConfiguration(classes = TestApplicationContext.class)
-class UserServiceTest {
+public class UserServiceTest {
     @Autowired
     ApplicationContext context;
 
@@ -186,7 +186,7 @@ class UserServiceTest {
     static class TestUserServiceException extends RuntimeException {
     }
 
-    static class TestUserService extends UserServiceImpl {
+    static public class TestUserService extends UserServiceImpl {
         private String id = "madnite1";
 
         @Override

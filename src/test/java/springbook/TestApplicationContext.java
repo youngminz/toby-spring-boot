@@ -8,10 +8,14 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.mail.MailSender;
 import org.springframework.transaction.PlatformTransactionManager;
 import springbook.user.dao.UserDao;
 import springbook.user.dao.UserDaoJdbc;
+import springbook.user.service.UserService;
+import springbook.user.service.UserServiceImpl;
 import springbook.user.sqlservice.SqlService;
+import springbook.user.service.UserServiceTest;
 
 import javax.sql.DataSource;
 
@@ -20,6 +24,9 @@ import javax.sql.DataSource;
 public class TestApplicationContext {
     @Autowired
     SqlService sqlService;
+
+    @Autowired
+    MailSender mailSender;
 
     @Bean
     public DataSource dataSource() {
@@ -53,5 +60,21 @@ public class TestApplicationContext {
         userDaoJdbc.setJdbcTemplate(jdbcTemplate());
         userDaoJdbc.setSqlService(sqlService);
         return userDaoJdbc;
+    }
+
+    @Bean
+    public UserService userService() {
+        UserServiceImpl userService = new UserServiceImpl();
+        userService.setUserDao(userDao());
+        userService.setMailSender(mailSender);
+        return userService;
+    }
+
+    @Bean
+    public UserService testUserService() {
+        UserServiceTest.TestUserService userService = new UserServiceTest.TestUserService();
+        userService.setUserDao(userDao());
+        userService.setMailSender(mailSender);
+        return userService;
     }
 }
