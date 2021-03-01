@@ -1,10 +1,5 @@
 package springbook.user.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-import static springbook.user.service.UserServiceImpl.MIN_LOGIN_FOR_SILVER;
-import static springbook.user.service.UserServiceImpl.MIN_RECOMMEND_FOR_GOLD;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
@@ -25,6 +20,11 @@ import springbook.user.domain.User;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+import static springbook.user.service.UserServiceImpl.MIN_LOGIN_FOR_SILVER;
+import static springbook.user.service.UserServiceImpl.MIN_RECOMMEND_FOR_GOLD;
 
 @SpringBootTest
 @ContextConfiguration(classes = {TestAppContext.class, AppContext.class})
