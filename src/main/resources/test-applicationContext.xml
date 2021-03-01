@@ -37,6 +37,7 @@
 
     <bean id="sqlService" class="springbook.user.sqlservice.OxmSqlService">
         <property name="unmarshaller" ref="unmarshaller" />
+        <property name="sqlmap" value="classpath:sqlmap.xml" />
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
