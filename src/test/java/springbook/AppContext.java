@@ -23,7 +23,7 @@ import java.sql.Driver;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages = "springbook.user")
-@EnableSqlService
+@Import(SqlServiceContext.class)
 @PropertySource("/database.properties")
 public class AppContext implements SqlMapConfig {
     @Value("${db.driverClass}") Class<? extends Driver> driverClass;
