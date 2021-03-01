@@ -30,7 +30,6 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@ImportResource("/test-applicationContext.xml")
 public class TestApplicationContext {
     @Autowired
     SqlService sqlService;
