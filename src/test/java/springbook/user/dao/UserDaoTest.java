@@ -3,6 +3,7 @@ package springbook.user.dao;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -11,7 +12,6 @@ import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import springbook.AppContext;
-import springbook.TestAppContext;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
@@ -29,6 +29,9 @@ public class UserDaoTest {
     private UserDao dao;
     @Autowired
     private DataSource dataSource;
+    @Autowired
+    DefaultListableBeanFactory bf;
+
     private User user1;
     private User user2;
     private User user3;
@@ -156,5 +159,12 @@ public class UserDaoTest {
         assertEquals(user1.getLevel(), user2.getLevel());
         assertEquals(user1.getLogin(), user2.getLogin());
         assertEquals(user1.getRecommend(), user2.getRecommend());
+    }
+
+    @Test
+    public void beans() {
+        for (String n : bf.getBeanDefinitionNames()) {
+            System.out.println(n + "\t" + bf.getBean(n).getClass().getName());
+        }
     }
 }
