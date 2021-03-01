@@ -3,7 +3,6 @@ package springbook;
 import com.mysql.cj.jdbc.Driver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -58,16 +57,9 @@ public class TestApplicationContext {
      */
 
     @Bean
-    public JdbcTemplate jdbcTemplate() {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate();
-        jdbcTemplate.setDataSource(dataSource());
-        return jdbcTemplate;
-    }
-
-    @Bean
     public UserDao userDao() {
         UserDaoJdbc userDaoJdbc = new UserDaoJdbc();
-        userDaoJdbc.setJdbcTemplate(jdbcTemplate());
+        userDaoJdbc.setDataSource(dataSource());
         userDaoJdbc.setSqlService(sqlService());
         return userDaoJdbc;
     }
