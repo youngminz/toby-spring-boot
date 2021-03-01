@@ -3,7 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'jacoco'
-    id 'org.unbroken-dome.xjc' version '1.4.3'
+    id 'org.unbroken-dome.xjc' version '2.0.0'
 }
 
 group = 'kr.youngminz'
