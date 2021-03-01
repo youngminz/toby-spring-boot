@@ -1,9 +1,9 @@
 package springbook.learningtest.pointcut;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PointcutTest {
     @Test
