@@ -1,7 +1,6 @@
 package springbook;
 
 import com.mysql.cj.jdbc.Driver;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,19 +8,14 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
-import org.springframework.mail.MailSender;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import springbook.user.dao.UserDao;
-import springbook.user.service.DummyMailSender;
-import springbook.user.service.UserService;
 import springbook.user.sqlservice.EmbeddedDbSqlRegistry;
 import springbook.user.sqlservice.OxmSqlService;
 import springbook.user.sqlservice.SqlRegistry;
 import springbook.user.sqlservice.SqlService;
-import springbook.user.service.UserServiceTest;
 
 import javax.sql.DataSource;
 
