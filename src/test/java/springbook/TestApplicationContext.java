@@ -63,14 +63,6 @@ public class TestApplicationContext {
     UserDao userDao;
 
     @Bean
-    public UserService userService() {
-        UserServiceImpl userService = new UserServiceImpl();
-        userService.setUserDao(userDao);
-        userService.setMailSender(mailSender());
-        return userService;
-    }
-
-    @Bean
     public UserService testUserService() {
         UserServiceTest.TestUserService userService = new UserServiceTest.TestUserService();
         userService.setUserDao(userDao);
