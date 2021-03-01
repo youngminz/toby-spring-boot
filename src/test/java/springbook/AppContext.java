@@ -28,7 +28,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan(basePackages="springbook.user")
-public class TestApplicationContext {
+public class AppContext {
 
     /**
      * DB 연결과 트랜잭션
@@ -51,26 +51,6 @@ public class TestApplicationContext {
         DataSourceTransactionManager tm = new DataSourceTransactionManager();
         tm.setDataSource(dataSource());
         return tm;
-    }
-
-    /**
-     * 애플리케이션 로직 & 테스트
-     */
-
-    @Autowired
-    UserDao userDao;
-
-    @Bean
-    public UserService testUserService() {
-        UserServiceTest.TestUserService userService = new UserServiceTest.TestUserService();
-        userService.setUserDao(userDao);
-        userService.setMailSender(mailSender());
-        return userService;
-    }
-
-    @Bean
-    public MailSender mailSender() {
-        return new DummyMailSender();
     }
 
     /**

@@ -11,7 +11,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator;
 import org.springframework.jdbc.support.SQLExceptionTranslator;
 import org.springframework.test.context.ContextConfiguration;
-import springbook.TestApplicationContext;
+import springbook.AppContext;
+import springbook.TestAppContext;
 import springbook.user.domain.Level;
 import springbook.user.domain.User;
 
@@ -20,7 +21,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @SpringBootTest
-@ContextConfiguration(classes = TestApplicationContext.class)
+@ContextConfiguration(classes = {TestAppContext.class, AppContext.class})
 public class UserDaoTest {
     @Autowired
     private UserDao dao;
